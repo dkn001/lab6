@@ -1,14 +1,16 @@
-'use strict';
+/*'use strict';*/
 
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
 	initializePage();
 })
-
+https://ixd.ucsd.edu/home/w21/lab/lab6/introHCI-w19-lab6.043.png
 /*
  * Function that is called when the document is ready.
  */
 function initializePage() {
+
+
 	$('.project a').click(addProjectDetails);
 
 	// $('#colorBtn').click(randomizeColors);
@@ -27,4 +29,13 @@ function addProjectDetails(e) {
 	var idNumber = projectID.substr('project'.length);
 
 	console.log("User clicked on project " + idNumber);
+
+	$.get("/project/"+idNumber, callBackFn);
+
+}
+
+function callBackFn(result) {
+	console.log(result);
+
+	$("#project"+result['id']+" .details").html("<p>"+result['title']+"</p>"  +   "<p>"+result['date']+"</p>"   +  "<img class='detailsImage' src='" + result['image'] + "' >"   +result['summary']);
 }
